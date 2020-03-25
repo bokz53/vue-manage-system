@@ -206,6 +206,7 @@ export default {
         this.getData();
         this.getTop();
     },
+
     methods: {
         getData() {
             getIndexPagedByUserId(this.query).then(res => {
