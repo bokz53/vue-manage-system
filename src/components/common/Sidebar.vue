@@ -6,7 +6,7 @@
             :collapse="collapse"
             background-color="#324157"
             text-color="#bfcbd9"
-            active-text-color="#20a0ff"
+            active-text-color="#ff554b"
             unique-opened
             router
         >
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import bus from '../common/bus';
+import bus from './bus';
 export default {
     data() {
         return {
@@ -61,16 +61,42 @@ export default {
                     index: 'dashboard',
                     title: '系统首页'
                 },
+
                 {
-                    icon: 'el-icon-lx-cascades',
-                    index: 'table',
-                    title: '基础表格'
+                    icon: 'el-icon-office-building',
+                    index: 'companyMgt',
+                    title: '企业管理'
                 },
+
                 {
-                    icon: 'el-icon-lx-copy',
-                    index: 'tabs',
-                    title: 'tab选项卡'
+                    icon: 'el-icon-data-line',
+                    index: 'indexDisplay',
+                    title: '指标展览'
                 },
+
+                {
+                    icon: 'el-icon-coin',
+                    index: 'rawDataMgt',
+                    title: '原始数据管理'
+                },
+
+                {
+                    icon: 'el-icon-user',
+                    index: 'customWeight',
+                    title: '自定义权重'
+                },
+
+                //
+                // {
+                //     icon: 'el-icon-lx-cascades',
+                //     index: 'table',
+                //     title: '基础表格'
+                // },
+                // {
+                //     icon: 'el-icon-lx-copy',
+                //     index: 'tabs',
+                //     title: 'tab选项卡'
+                // },
                 {
                     icon: 'el-icon-lx-calendar',
                     index: '3',
@@ -100,56 +126,67 @@ export default {
                         }
                     ]
                 },
-                {
-                    icon: 'el-icon-lx-emoji',
-                    index: 'icon',
-                    title: '自定义图标'
-                },
-                {
-                    icon: 'el-icon-pie-chart',
-                    index: 'charts',
-                    title: 'schart图表'
-                },
-                {
-                    icon: 'el-icon-rank',
-                    index: '6',
-                    title: '拖拽组件',
-                    subs: [
-                        {
-                            index: 'drag',
-                            title: '拖拽列表'
-                        },
-                        {
-                            index: 'dialog',
-                            title: '拖拽弹框'
-                        }
-                    ]
-                },
-                {
-                    icon: 'el-icon-lx-global',
-                    index: 'i18n',
-                    title: '国际化功能'
-                },
-                {
-                    icon: 'el-icon-lx-warn',
-                    index: '7',
-                    title: '错误处理',
-                    subs: [
-                        {
-                            index: 'permission',
-                            title: '权限测试'
-                        },
-                        {
-                            index: '404',
-                            title: '404页面'
-                        }
-                    ]
-                },
-                {
-                    icon: 'el-icon-lx-redpacket_fill',
-                    index: '/donate',
-                    title: '支持作者'
-                }
+                // {
+                //     icon: 'el-icon-lx-emoji',
+                //     index: 'icon',
+                //     title: '自定义图标'
+                // },
+                // {
+                //     icon: 'el-icon-pie-chart',
+                //     index: 'charts',
+                //     title: 'schart图表'
+                // },
+                // {
+                //     icon: 'el-icon-rank',
+                //     index: '6',
+                //     title: '拖拽组件',
+                //     subs: [
+                //         {
+                //             index: 'drag',
+                //             title: '拖拽列表'
+                //         },
+                //         {
+                //             index: 'dialog',
+                //             title: '拖拽弹框'
+                //         }
+                //     ]
+                // },
+                // {
+                //     icon: 'el-icon-lx-global',
+                //     index: 'i18n',
+                //     title: '国际化功能'
+                // },
+                // {
+                //     icon: 'el-icon-lx-warn',
+                //     index: '7',
+                //     title: '错误处理',
+                //     subs: [
+                //         {
+                //             index: 'permission',
+                //             title: '权限测试'
+                //         },
+                //         {
+                //             index: '404',
+                //             title: '404页面'
+                //         }
+                //     ]
+                // },
+                // {
+                //     icon: 'el-icon-lx-redpacket_fill',
+                //     index: '/donate',
+                //     title: '支持作者'
+                // },
+                // {
+                //     icon: 'el-icon-lx-redpacket_fill',
+                //     index: '/user/ouiojkn',
+                //     title: '测试路由跳转',
+                //     subs: [
+                //         {
+                //             index: "/user/tiaozhuan1",
+                //             title: "跳转1"
+                //         }
+                //     ]
+                // }
             ]
         };
     },

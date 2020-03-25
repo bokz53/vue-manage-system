@@ -51,7 +51,7 @@ export default {
                     text: '最近一周各品类销售图'
                 },
                 bgColor: '#fbfbfb',
-                labels: ['周一', '周二', '周三', '周四', '周五'],
+                labels: ['公司一', '公司二', '公司三', '公司四', '公司五'],
                 datasets: [
                     {
                         label: '家电',
@@ -102,7 +102,7 @@ export default {
                 labels: ['T恤', '牛仔裤', '连衣裙', '毛衣', '七分裤', '短裙', '羽绒服'],
                 datasets: [
                     {
-                        data: [334, 278, 190, 235, 260, 200, 141]
+                        data: [334, 278, 190, 235, 260, 2000, 141]
                     }
                 ]
             },
@@ -111,7 +111,7 @@ export default {
                 title: {
                     text: '环形三等分'
                 },
-                showValue: false,
+                showValue: true,
                 legend: {
                     position: 'bottom',
                     bottom: 40
@@ -120,7 +120,7 @@ export default {
                 labels: ['vue', 'react', 'angular'],
                 datasets: [
                     {
-                        data: [500, 500, 500]
+                        data: [5, 5, 5]
                     }
                 ]
             }
