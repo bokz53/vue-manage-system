@@ -33,11 +33,11 @@
                 <div class="handle-box">
                     <el-button
                             type="primary"
-                            icon="el-icon-delete"
+                            icon="el-icon-circle-plus-outline"
                             @click="addAllSelection"
                     >批量添加至备选
                     </el-button>
-                    <el-button type="primary" icon="el-icon-search"
+                    <el-button type="primary" icon="el-icon-delete"
                                @click="handleClearSelect"
                                class="handle-del mr10"
                     >清除备选</el-button>
@@ -60,7 +60,7 @@
                         <template slot-scope="scope">
                             <el-button
                                     type="text"
-                                    icon="el-icon-edit"
+                                    icon="el-icon-plus"
                                     @click="handleSelect(scope.row)"
                             >加入比对备选
                             </el-button>
@@ -204,6 +204,7 @@ export default {
     },
     created() {
         this.getData();
+        this.getTop();
     },
     methods: {
         getData() {
@@ -212,6 +213,15 @@ export default {
                 this.tableData = res.data.data;
                 this.pageTotal = res.data.recordTotal || 50;
             });
+
+            let params = {
+                companyId : 1,
+                userId : localStorage.getItem('curUserId'),
+            };
+            this.initNameMap();
+
+        },
+        getTop() {
             getIndexTop20ByUserId(this.query).then(res => {
 
                 let data = res.data;
@@ -220,13 +230,6 @@ export default {
                     this.options.datasets[0].data.push(i.indexValue);
                 });
             });
-
-            let params = {
-                companyId : 1,
-                userId : localStorage.getItem('curUserId'),
-            };
-            this.initNameMap();
-
         },
         initNameMap() {
             this.indexNameMap2 = new Map();
@@ -300,9 +303,17 @@ export default {
         },
         addAllSelection() {
             this.selectionList = this.selectionList.concat(this.multipleSelection);
-            // todo 批量接口
-
-            this.$refs.selectionBar.renderChart();
+            queryIndexByCompanyIds(this.selectionList).then(res => {
+                let data = res.data;
+                this.optionsSelection.labels = [];
+                this.optionsSelection.datasets[0].data = [];
+                data.forEach(i => {
+                    this.optionsSelection.labels.push(i.companyName);
+                    this.optionsSelection.datasets[0].data.push(i.indexValue);
+                    this.$refs.selectionBar.renderChart();
+                });
+            });
+            // this.$refs.selectionBar.renderChart();
 
 
         },
@@ -310,7 +321,6 @@ export default {
         handleSelect(row) {
             this.selectionList.push(row.companyId);
             this.selectionList = this.arrayUnique(this.selectionList);
-            // todo 接口
             queryIndexByCompanyIds(this.selectionList).then(res => {
                 let data = res.data;
                 this.optionsSelection.labels = [];

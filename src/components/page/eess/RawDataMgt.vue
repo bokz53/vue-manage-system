@@ -9,12 +9,12 @@
         </div>
         <div class="container">
             <div class="handle-box">
-                <el-button
-                    type="primary"
-                    icon="el-icon-delete"
-                    class="handle-del mr10"
-                    @click="delAllSelection"
-                >批量删除</el-button>
+<!--                <el-button-->
+<!--                    type="primary"-->
+<!--                    icon="el-icon-delete"-->
+<!--                    class="handle-del mr10"-->
+<!--                    @click="delAllSelection"-->
+<!--                >批量删除</el-button>-->
                 <el-input v-model="query.keyword" placeholder="请输入企业名称..." class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 <el-button type="primary" icon="el-icon-search" @click="handleAdd">新增</el-button>
@@ -480,13 +480,13 @@ export default {
                     idList : this.multipleSelection,
                     userId : localStorage.getItem('curUserId')
                 };
-                deleteCompanyBatch(param).then(res => {
-                    if (res.resultCode && res.resultCode === 0) {
-                        this.$message.success(`批量删除成功`);
-                        this.multipleSelection = [];
-                        this.getData();
-                    }
-                });
+                // deleteCompanyBatch(param).then(res => {
+                //     if (res.resultCode && res.resultCode === 0) {
+                //         this.$message.success(`批量删除成功`);
+                //         this.multipleSelection = [];
+                //         this.getData();
+                //     }
+                // });
             });
         },
         // 编辑操作

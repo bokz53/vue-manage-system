@@ -37,7 +37,7 @@
                 <!--                    </el-col>-->
 <!--            </el-row>-->
             <el-col :span="8">
-                <el-card shadow="hover" class="el-card__body" style="height:460px;">
+                <el-card shadow="hover" class="el-card__body" style="height:520px;">
                     <div class="user-info">
                         <img src="../../assets/img/img.jpg" class="user-avator" alt />
                         <div class="user-info-cont">
@@ -67,9 +67,14 @@
                 </el-card>
             </el-col>
             <el-col :span="16">
-                <el-card shadow="hover" style="height:500px;">
-                    <el-card shadow="hover">
-                        <schart class="schart" canvasId="ring" :options="optionsRing"></schart>
+                <el-card shadow="hover" >
+                    <el-card shadow="hover" :align="center">
+                        <div  style="float: right">
+                            <div v-for="item in indexNameT1">
+                                <span>{{ item.code }} - {{ item.name }}</span>
+                            </div>
+                        </div>
+                        <schart class="schart" style="height:500px;width: 600px; float: right" canvasId="ring" :options="optionsRing"></schart>
                     </el-card>
 <!--                    T1 <el-progress :percentage="overviewWeightT1" color="#42b983"></el-progress>-->
 <!--                    T2 <el-progress :percentage="overviewWeightT2" color="#f1e05a"></el-progress>-->
@@ -108,24 +113,25 @@
 <!--                </el-card>-->
             </el-col>
         </el-row>
-        <el-row :gutter="20">
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
-                </el-card>
-            </el-col>
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
-                </el-card>
-            </el-col>
-        </el-row>
+<!--        <el-row :gutter="20">-->
+<!--            <el-col :span="12">-->
+<!--                <el-card shadow="hover">-->
+<!--                    <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>-->
+<!--                </el-card>-->
+<!--            </el-col>-->
+<!--            <el-col :span="12">-->
+<!--                <el-card shadow="hover">-->
+<!--                    <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>-->
+<!--                </el-card>-->
+<!--            </el-col>-->
+<!--        </el-row>-->
     </div>
 </template>
 
 <script>
 import Schart from 'vue-schart';
 import bus from '../common/bus';
+import indexName from '../common/IndexNameMap';
 import {
     countCompany,
     countCompletedIndex,
@@ -136,105 +142,6 @@ export default {
     data() {
         return {
             name: localStorage.getItem('curUserName'),
-            todoList: [
-                {
-                    title: '今天要修复100个bug',
-                    status: false
-                },
-                {
-                    title: '今天要修复100个bug',
-                    status: false
-                },
-                {
-                    title: '今天要写100行代码加几个bug吧',
-                    status: false
-                },
-                {
-                    title: '今天要修复100个bug',
-                    status: false
-                },
-                {
-                    title: '今天要修复100个bug',
-                    status: true
-                },
-                {
-                    title: '今天要写100行代码加几个bug吧',
-                    status: true
-                }
-            ],
-            data: [
-                {
-                    name: '2018/09/04',
-                    value: 1083
-                },
-                {
-                    name: '2018/09/05',
-                    value: 941
-                },
-                {
-                    name: '2018/09/06',
-                    value: 1139
-                },
-                {
-                    name: '2018/09/07',
-                    value: 816
-                },
-                {
-                    name: '2018/09/08',
-                    value: 327
-                },
-                {
-                    name: '2018/09/09',
-                    value: 228
-                },
-                {
-                    name: '2018/09/10',
-                    value: 1065
-                }
-            ],
-            options: {
-                type: 'bar',
-                title: {
-                    text: '最近一周各品类销售图'
-                },
-                xRorate: 25,
-                labels: ['周一', '周二', '周三', '周四', '周五'],
-                datasets: [
-                    {
-                        label: '家电',
-                        data: [234, 278, 270, 190, 230]
-                    },
-                    {
-                        label: '百货',
-                        data: [164, 178, 190, 135, 160]
-                    },
-                    {
-                        label: '食品',
-                        data: [144, 198, 150, 235, 120]
-                    }
-                ]
-            },
-            options2: {
-                type: 'line',
-                title: {
-                    text: '最近几个月各品类销售趋势图'
-                },
-                labels: ['6月', '7月', '8月', '9月', '10月'],
-                datasets: [
-                    {
-                        label: '家电',
-                        data: [234, 278, 270, 190, 230]
-                    },
-                    {
-                        label: '百货',
-                        data: [164, 178, 150, 135, 160]
-                    },
-                    {
-                        label: '食品',
-                        data: [74, 118, 200, 235, 90]
-                    }
-                ]
-            },
             optionsRing: {
                 type: 'ring',
                 title: {
@@ -254,9 +161,10 @@ export default {
                 ]
             },
 
-
             countCompanies: 0,
             countCompletedIndexs : 0,
+
+            indexNameT1 : [],
 
         };
     },
@@ -270,6 +178,8 @@ export default {
     },
     created() {
       this.getData();
+      this.getIndexNameT1();
+      console.log(this.indexNameT1)
     },
     // created() {
     //     this.handleListener();
@@ -300,8 +210,11 @@ export default {
                     //
                     this.optionsRing.datasets[0].data.push(i.weight);
                 }));
+        },
 
-        }
+        getIndexNameT1() {
+            this.indexNameT1 = indexName.filter(i => i.code.length === 2);
+        },
         // test() {
         //     alert(this.changeDate.toString())
         //
