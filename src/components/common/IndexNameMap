@@ -110,7 +110,7 @@ export default[
   },
   {
     code: 'T711',
-    name: '消费者满衣度'
+    name: '消费者满意度'
   },
   {
     code: 'T712',

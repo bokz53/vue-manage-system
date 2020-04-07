@@ -10,6 +10,9 @@
         <div class="container">
             <div class="handle-box">
                 <el-button type="danger" icon="el-icon-warning-outline" @click="handleInit" round>完全初始化权重</el-button>
+                <el-button @click="drawer = true" icon="el-icon-lx-sort" type="primary" style="margin-left: 16px;" round>
+                    指标树形关系图
+                </el-button>
             </div>
             <el-table
                 :data="tableData"
@@ -20,6 +23,7 @@
                 @selection-change="handleSelectionChange"
             >
                 <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+                <el-table-column prop="indexCode" label="代码" width="55" align="center"></el-table-column>
                 <el-table-column prop="indexName" label="指标名称" width="180"></el-table-column>
                 <el-table-column prop="indexName" label="指标概述" ></el-table-column>
                 <el-table-column prop="weight" label="权重值" align="center">
@@ -32,28 +36,6 @@
                         >{{scope.row.userId===0 ?'否':'是'}}</el-tag>
                     </template>
                 </el-table-column>
-<!--                <el-table-column label="账户余额">-->
-<!--                    <template slot-scope="scope">￥{{scope.row.money}}</template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column label="头像(查看大图)" align="center">-->
-<!--                    <template slot-scope="scope">-->
-<!--                        <el-image-->
-<!--                            class="table-td-thumb"-->
-<!--                            :src="scope.row.thumb"-->
-<!--                            :preview-src-list="[scope.row.thumb]"-->
-<!--                        ></el-image>-->
-<!--                    </template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column prop="address" label="地址"></el-table-column>-->
-<!--                <el-table-column label="状态" align="center">-->
-<!--                    <template slot-scope="scope">-->
-<!--                        <el-tag-->
-<!--                            :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"-->
-<!--                        >{{scope.row.state}}</el-tag>-->
-<!--                    </template>-->
-<!--                </el-table-column>-->
-
-<!--                <el-table-column prop="date" label="注册时间"></el-table-column>-->
                 <el-table-column label="操作" width="280" align="center">
                     <template slot-scope="scope">
                         <el-button
@@ -84,6 +66,18 @@
             </div>
         </div>
 
+<!--        指标树形结构侧拉框-->
+
+        <div>
+            <el-drawer
+                    title="指标树形关系图"
+                    :visible.sync="drawer"
+                    :direction="direction"
+                    :before-close="handleDrawerClose">
+                <el-tree :data="treeData" :props="treeProps" v-if="true" :default-expand-all="true"></el-tree>
+            </el-drawer>
+        </div>
+
         <!-- 编辑弹出框 -->
         <el-dialog title="自定义权重" :visible.sync="editVisible" width="30%">
             <el-form ref="form" :model="form" label-width="70px">
@@ -92,9 +86,6 @@
                 <el-form-item label="权重值">
                     <el-input v-model="form.weight"></el-input>
                 </el-form-item>
-<!--                <el-form-item label="地址">-->
-<!--                    <el-input v-model="form.address"></el-input>-->
-<!--                </el-form-item>-->
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
@@ -111,6 +102,7 @@ import {
     customizeWeight,
     uncustomizeWeight,
     initWeight,
+    getWeightTree,
 
 } from '../../../api/index';
 
@@ -130,6 +122,14 @@ export default {
 
             indexNameMap2: {},
 
+            drawer: false,
+            direction: 'rtl',
+            treeData: [],
+            treeProps: {
+                children: 'childrenList',
+                label: 'indexName'
+            },
+
             editVisible: false,
             addVisible: false,
             pageTotal: 0,
@@ -141,9 +141,16 @@ export default {
     created() {
         this.getData();
         this.initNameMap();
+        this.getIndexTree();
     },
     methods: {
 
+        getIndexTree() {
+            getWeightTree().then(res => {
+                    this.treeData = [];
+                    this.treeData.push(res.data);
+            });
+        },
         initNameMap() {
             this.indexNameMap2 = new Map();
             indexName.forEach(i => {
@@ -213,6 +220,13 @@ export default {
                     this.getData();
                 }
             });
+        },
+        handleDrawerClose(done) {
+            this.$confirm('确认关闭？')
+                .then(_ => {
+                    done();
+                })
+                .catch(_ => {});
         },
     }
 };

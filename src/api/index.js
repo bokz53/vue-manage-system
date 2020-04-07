@@ -116,6 +116,12 @@ export function initWeight(query) {
     });
 };
 
+export function getWeightTree(query) {
+    return get(env.backend + `/api/weight/tree`, query, true).then(res => {
+        return res
+    });
+};
+
 
 // 指标管理
 export function getIndexByCompanyId(query) {
