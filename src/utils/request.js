@@ -28,14 +28,13 @@ service.interceptors.response.use(
             Promise.resolve();
             return response.data;
         } else {
-            console.log("not 200!")
+            // message('请求失败！');
             Promise.reject();
         }
     },
     error => {
-        console.log(error.response);
-
         if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+            message("鉴权失败！返回登入页面");
             if (count === 0) {
                 Router.push({
                     path: "login"
@@ -59,6 +58,7 @@ export async function post(url, params, showError) {
         errorHandle(result, showError);
         return data;
     } catch (error) {
+        afterCatchError(error);
         throw error.data || error;
     }
 }
@@ -72,6 +72,7 @@ export async function get(url, params, showError) {
         errorHandle(result, showError);
         return (data);
     } catch (error) {
+        afterCatchError(error);
         throw error.data || error;
     }
 }
@@ -83,6 +84,7 @@ export async function put(url, params, showError) {
         errorHandle(result, showError);
         return data;
     } catch (error) {
+        afterCatchError(error);
         throw error.data || error;
     }
 }
@@ -96,13 +98,24 @@ export async function deletes(url, params, showError) {
         errorHandle(result, showError);
         return data;
     } catch (error) {
+        afterCatchError(error);
         throw error.data || error;
     }
 }
-//错误处理
+// 自定义业务错误处理
 function errorHandle(res, showError) {
     if (res.resultCode!==0 && showError) {
         message(res.resultMsg);
+    }
+}
+
+// 通用错误处理
+function afterCatchError(error) {
+    // 如果error为空，多半就是网络异常了
+    if (!error) {
+        message('网络异常');
+    } else {
+        message('请求失败 ： ' + error.response);
     }
 }
 //消息提示

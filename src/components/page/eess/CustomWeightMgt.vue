@@ -10,7 +10,7 @@
         <div class="container">
             <div class="handle-box">
                 <el-button type="danger" icon="el-icon-warning-outline" @click="handleInit" round>完全初始化权重</el-button>
-                <el-button @click="drawer = true" icon="el-icon-lx-sort" type="primary" style="margin-left: 16px;" round>
+                <el-button @click="isDrawerShow = true" icon="el-icon-lx-sort" type="primary" style="margin-left: 16px;" round>
                     指标树形关系图
                 </el-button>
             </div>
@@ -20,7 +20,6 @@
                 class="table"
                 ref="multipleTable"
                 header-cell-class-name="table-header"
-                @selection-change="handleSelectionChange"
             >
                 <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
                 <el-table-column prop="indexCode" label="代码" width="55" align="center"></el-table-column>
@@ -58,10 +57,7 @@
                 <el-pagination
                     background
                     layout="total"
-                    :current-page="query.pageNum"
-                    :page-size="query.pageSize"
                     :total="pageTotal"
-                    @current-change="handlePageChange"
                 ></el-pagination>
             </div>
         </div>
@@ -71,10 +67,11 @@
         <div>
             <el-drawer
                     title="指标树形关系图"
-                    :visible.sync="drawer"
+                    :visible.sync="isDrawerShow"
                     :direction="direction"
                     :before-close="handleDrawerClose">
-                <el-tree :data="treeData" :props="treeProps" v-if="true" :default-expand-all="true"></el-tree>
+                <el-tree :data="treeData" :props="treeProps" v-if="true" :default-expand-all="true">
+                </el-tree>
             </el-drawer>
         </div>
 
@@ -122,7 +119,7 @@ export default {
 
             indexNameMap2: {},
 
-            drawer: false,
+            isDrawerShow: false,
             direction: 'rtl',
             treeData: [],
             treeProps: {

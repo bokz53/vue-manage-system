@@ -15,10 +15,6 @@
                     class="handle-del mr10"
                     @click="delAllSelection"
                 >批量删除</el-button>
-<!--                <el-select v-model="query.address" placeholder="地址" class="handle-select mr10">-->
-<!--                    <el-option key="1" label="广东省" value="广东省"></el-option>-->
-<!--                    <el-option key="2" label="湖南省" value="湖南省"></el-option>-->
-<!--                </el-select>-->
                 <el-input v-model="query.keyword" placeholder="请输入企业名称..." class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
                 <el-button type="primary" icon="el-icon-search" @click="handleAdd">新增</el-button>
@@ -34,28 +30,6 @@
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
                 <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
                 <el-table-column prop="companyName" label="企业名称"></el-table-column>
-<!--                <el-table-column label="账户余额">-->
-<!--                    <template slot-scope="scope">￥{{scope.row.money}}</template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column label="头像(查看大图)" align="center">-->
-<!--                    <template slot-scope="scope">-->
-<!--                        <el-image-->
-<!--                            class="table-td-thumb"-->
-<!--                            :src="scope.row.thumb"-->
-<!--                            :preview-src-list="[scope.row.thumb]"-->
-<!--                        ></el-image>-->
-<!--                    </template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column prop="address" label="地址"></el-table-column>-->
-<!--                <el-table-column label="状态" align="center">-->
-<!--                    <template slot-scope="scope">-->
-<!--                        <el-tag-->
-<!--                            :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"-->
-<!--                        >{{scope.row.state}}</el-tag>-->
-<!--                    </template>-->
-<!--                </el-table-column>-->
-
-<!--                <el-table-column prop="date" label="注册时间"></el-table-column>-->
                 <el-table-column label="操作" width="380" align="center">
                     <template slot-scope="scope">
                         <el-button
@@ -63,13 +37,6 @@
                             icon="el-icon-edit"
                             @click="handleEdit(scope.$index, scope.row)"
                         >编辑</el-button>
-
-<!--                        <el-button-->
-<!--                                type="text"-->
-<!--                                icon="el-icon-lx-sort"-->
-<!--                                @click="handleRawDataEdit(scope.$index, scope.row)"-->
-<!--                        >输入原始数据</el-button>-->
-
                         <el-button
                             type="text"
                             icon="el-icon-delete"
@@ -98,9 +65,6 @@
                 <el-form-item label="企业名">
                     <el-input v-model="form.companyName"></el-input>
                 </el-form-item>
-                <!--                <el-form-item label="地址">-->
-                <!--                    <el-input v-model="form.address"></el-input>-->
-                <!--                </el-form-item>-->
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>

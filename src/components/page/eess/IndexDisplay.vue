@@ -86,47 +86,6 @@
                 </div>
             </div>
 
-        <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="70px">
-                <el-form-item label="企业名">
-                    <el-input v-model="form.companyName"></el-input>
-                </el-form-item>
-<!--                <el-form-item label="地址">-->
-<!--                    <el-input v-model="form.address"></el-input>-->
-<!--                </el-form-item>-->
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="editVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveEdit">确 定</el-button>
-            </span>
-        </el-dialog>
-            <!-- 新增弹出框 -->
-            <el-dialog title="新增" :visible.sync="addVisible" width="30%">
-                <el-form ref="form" :model="form" label-width="70px">
-                    <el-form-item label="企业名">
-                        <el-input v-model="form.companyName"></el-input>
-                    </el-form-item>
-                </el-form>
-                <span slot="footer" class="dialog-footer">
-                <el-button @click="addVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveAdd">确 定</el-button>
-            </span>
-        </el-dialog>
-
-            <!-- 新增弹出框 -->
-            <el-dialog title="新增" :visible.sync="addVisible" width="30%">
-                <el-form ref="form" :model="form" label-width="70px">
-                    <el-form-item label="企业名">
-                        <el-input v-model="form.companyName"></el-input>
-                    </el-form-item>
-                </el-form>
-                <span slot="footer" class="dialog-footer">
-                <el-button @click="addVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveAdd">确 定</el-button>
-            </span>
-        </el-dialog>
-
     </div>
 </template>
 
@@ -149,7 +108,7 @@ export default {
                 pageNum: 1,
                 pageSize: 10
             },
-
+            treeData : [],
 
             options: {
                 type: 'bar',
@@ -180,8 +139,6 @@ export default {
             treeCompanyName: '',
             selectionList : [],
             selectionVisible : false,
-
-
 
             tableData: [{indexName: '总计  未指定企业', childrenList: []}],
             treeProps: {

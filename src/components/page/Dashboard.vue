@@ -33,7 +33,7 @@
             </el-col>
             <el-col :span="16">
                 <el-card shadow="hover" >
-                    <el-card shadow="hover" :align="center">
+                    <el-card shadow="hover" align="center">
                         <div  style="float: right">
                             <div v-for="item in indexNameT1">
                                 <span>{{ item.code }} - {{ item.name }}</span>
@@ -44,18 +44,6 @@
                 </el-card>
             </el-col>
         </el-row>
-<!--        <el-row :gutter="20">-->
-<!--            <el-col :span="12">-->
-<!--                <el-card shadow="hover">-->
-<!--                    <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>-->
-<!--                </el-card>-->
-<!--            </el-col>-->
-<!--            <el-col :span="12">-->
-<!--                <el-card shadow="hover">-->
-<!--                    <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>-->
-<!--                </el-card>-->
-<!--            </el-col>-->
-<!--        </el-row>-->
     </div>
 </template>
 
@@ -87,7 +75,7 @@ export default {
                 labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
                 datasets: [
                     {
-                        data: []
+                        data: [0,0,0,0,0,0,0]
                     }
                 ]
             },
@@ -103,67 +91,30 @@ export default {
         Schart
     },
     computed: {
-        role() {
-            return this.name === 'admin' ? '超级管理员' : '普通用户';
-        }
     },
     created() {
       this.getData();
       this.getIndexNameT1();
-      console.log(this.indexNameT1)
     },
-    // created() {
-    //     this.handleListener();
-    //     this.changeDate();
-    // },
-    // activated() {
-    //     this.handleListener();
-    // },
-    // deactivated() {
-    //     window.removeEventListener('resize', this.renderChart);
-    //     bus.$off('collapse', this.handleBus);
-    // },
     methods: {
-        changeDate() {
-            const now = new Date().getTime();
-            this.data.forEach((item, index) => {
-                const date = new Date(now - (6 - index) * 86400000);
-                item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-            });
-        },
         getData() {
             countCompany({userId : localStorage.getItem('curUserId')})
                 .then(res => this.countCompanies = res.data || 0);
             countCompletedIndex({userId : localStorage.getItem('curUserId')})
                 .then(res => this.countCompletedIndexs = res.data || 0);
-            queryOverviewWeight({userId : localStorage.getItem('curUserId')})
-                .then(res => res.data.forEach(i => {
-                    //
-                    this.optionsRing.datasets[0].data.push(i.weight);
-                }));
+            queryOverviewWeight({userId: localStorage.getItem('curUserId')})
+                .then(res => {
+                    this.optionsRing.datasets[0].data = [];
+                    res.data.forEach(i => {
+                        // 将后端获取的权重信息写入表格
+                        this.optionsRing.datasets[0].data.push(i.weight);
+                    })
+                });
         },
 
         getIndexNameT1() {
             this.indexNameT1 = indexName.filter(i => i.code.length === 2);
         },
-        // test() {
-        //     alert(this.changeDate.toString())
-        //
-        // }
-        // handleListener() {
-        //     bus.$on('collapse', this.handleBus);
-        //     // 调用renderChart方法对图表进行重新渲染
-        //     window.addEventListener('resize', this.renderChart);
-        // },
-        // handleBus(msg) {
-        //     setTimeout(() => {
-        //         this.renderChart();
-        //     }, 200);
-        // },
-        // renderChart() {
-        //     this.$refs.bar.renderChart();
-        //     this.$refs.line.renderChart();
-        // }
     }
 };
 </script>
