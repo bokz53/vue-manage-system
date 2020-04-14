@@ -1,41 +1,6 @@
 <template>
     <div>
         <el-row :gutter="20">
-<!--            <el-row :gutter="20" class="mgb20">-->
-<!--                <el-col :span="8" style="width: 25%">-->
-<!--                    <el-card shadow="hover" :body-style="{padding: '0px'}">-->
-<!--                        <div class="grid-content grid-con-1">-->
-<!--                            <i class="el-icon-lx-people grid-con-icon"></i>-->
-<!--                            <div class="grid-cont-right">-->
-<!--                                <div class="grid-num" >{{countCompanies}}</div>-->
-<!--                                <div>用户已接入企业</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </el-card>-->
-<!--                </el-col>-->
-<!--                <el-col :span="8">-->
-<!--                    <el-card shadow="hover" :body-style="{padding: '0px'}">-->
-<!--                        <div class="grid-content grid-con-2">-->
-<!--                            <i class="el-icon-lx-notice grid-con-icon"></i>-->
-<!--                            <div class="grid-cont-right">-->
-<!--                                <div class="grid-num">{{countCompletedIndexs}}</div>-->
-<!--                                <div>已完成指标分析企业</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </el-card>-->
-<!--                </el-col>-->
-                <!--                    <el-col :span="8">-->
-                <!--                        <el-card shadow="hover" :body-style="{padding: '0px'}">-->
-                <!--                            <div class="grid-content grid-con-3">-->
-                <!--                                <i class="el-icon-lx-goods grid-con-icon"></i>-->
-                <!--                                <div class="grid-cont-right">-->
-                <!--                                    <div class="grid-num">5000</div>-->
-                <!--                                    <div>数量</div>-->
-                <!--                                </div>-->
-                <!--                            </div>-->
-                <!--                        </el-card>-->
-                <!--                    </el-col>-->
-<!--            </el-row>-->
             <el-col :span="8">
                 <el-card shadow="hover" class="el-card__body" style="height:520px;">
                     <div class="user-info">
@@ -76,41 +41,7 @@
                         </div>
                         <schart class="schart" style="height:500px;width: 600px; float: right" canvasId="ring" :options="optionsRing"></schart>
                     </el-card>
-<!--                    T1 <el-progress :percentage="overviewWeightT1" color="#42b983"></el-progress>-->
-<!--                    T2 <el-progress :percentage="overviewWeightT2" color="#f1e05a"></el-progress>-->
-<!--                    T3 <el-progress :percentage="overviewWeightT3"></el-progress>-->
-<!--                    T4 <el-progress :percentage="overviewWeightT4" color="#f56c6c"></el-progress>-->
-<!--                    T5 <el-progress :percentage="overviewWeightT5" color="#f56c6c"></el-progress>-->
-<!--                    T6 <el-progress :percentage="overviewWeightT6" color="#f56c6c"></el-progress>-->
-<!--                    T7 <el-progress :percentage="overviewWeightT7" color="#f56c6c"></el-progress>-->
                 </el-card>
-<!--                <el-card shadow="hover" style="height:403px;">-->
-<!--                    <div slot="header" class="clearfix">-->
-<!--                        <span>待办事项</span>-->
-<!--                        <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>-->
-<!--                    </div>-->
-<!--                    <el-table :show-header="false" :data="todoList" style="width:100%;">-->
-<!--                        <el-table-column width="40">-->
-<!--                            <template slot-scope="scope">-->
-<!--                                <el-checkbox v-model="scope.row.status"></el-checkbox>-->
-<!--                            </template>-->
-<!--                        </el-table-column>-->
-<!--                        <el-table-column>-->
-<!--                            <template slot-scope="scope">-->
-<!--                                <div-->
-<!--                                    class="todo-item"-->
-<!--                                    :class="{'todo-item-del': scope.row.status}"-->
-<!--                                >{{scope.row.title}}</div>-->
-<!--                            </template>-->
-<!--                        </el-table-column>-->
-<!--                        <el-table-column width="60">-->
-<!--                            <template>-->
-<!--                                <i class="el-icon-edit"></i>-->
-<!--                                <i class="el-icon-delete"></i>-->
-<!--                            </template>-->
-<!--                        </el-table-column>-->
-<!--                    </el-table>-->
-<!--                </el-card>-->
             </el-col>
         </el-row>
 <!--        <el-row :gutter="20">-->
