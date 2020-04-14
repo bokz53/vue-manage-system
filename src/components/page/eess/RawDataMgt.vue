@@ -81,93 +81,90 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="原始数据修改" :visible.sync="editVisible" width="50%">
+        <el-dialog title="原始数据修改" :visible.sync="editVisible" width="50%" @close="editFormClose">
             <div style="font-size: 16px;margin-bottom: 10px">{{ form.companyName }}</div>
-            <el-form ref="form" :model="form" label-width="70px" :inline="true" label-position="top" >
-                <el-form-item label="产品销售额">
+            <el-form ref="editForm" :model="form" :rules="rules" label-width="70px" :inline="true" label-position="top" >
+                <el-form-item label="产品销售额" prop="productSales">
                     <el-input v-model="form.productSales"></el-input>
                 </el-form-item>
-                <el-form-item label="市场同类产品销售额">
+                <el-form-item label="市场同类产品销售额" prop="marketSameKindProductSales">
                     <el-input v-model="form.marketSameKindProductSales"></el-input>
                 </el-form-item>
-                <el-form-item label="利润总额">
+                <el-form-item label="利润总额" prop="totalProfit">
                     <el-input v-model="form.totalProfit"></el-input>
                 </el-form-item>
-                <el-form-item label="营业收入">
+                <el-form-item label="营业收入" prop="operatingIncome">
                     <el-input v-model="form.operatingIncome"></el-input>
                 </el-form-item>
-                <el-form-item label="销售成本">
+                <el-form-item label="销售成本" prop="salesCost">
                     <el-input v-model="form.salesCost"></el-input>
                 </el-form-item>
-                <el-form-item label="存货平均余额">
+                <el-form-item label="存货平均余额" prop="avgStockOverage">
                     <el-input v-model="form.avgStockOverage"></el-input>
                 </el-form-item>
-                <el-form-item label="应收账款平均余额">
+                <el-form-item label="应收账款平均余额" prop="avgPaymentToReceive">
                     <el-input v-model="form.avgPaymentToReceive"></el-input>
                 </el-form-item>
-                <el-form-item label="负债总额">
+                <el-form-item label="负债总额" prop="totalDebt">
                     <el-input v-model="form.totalDebt"></el-input>
                 </el-form-item>
-                <el-form-item label="资产总额">
+                <el-form-item label="资产总额" prop="totalAsset">
                     <el-input v-model="form.totalAsset"></el-input>
                 </el-form-item>
-                <el-form-item label="流动资产">
+                <el-form-item label="流动资产" prop="currentAsset">
                     <el-input v-model="form.currentAsset"></el-input>
                 </el-form-item>
-                <el-form-item label="流动负债">
+                <el-form-item label="流动负债" prop="currentLiability">
                     <el-input v-model="form.currentLiability"></el-input>
                 </el-form-item>
-                <el-form-item label="速动资产">
+                <el-form-item label="速动资产" prop="quickAsset">
                     <el-input v-model="form.quickAsset"></el-input>
                 </el-form-item>
-                <el-form-item label="期末资产总额">
+                <el-form-item label="期末资产总额" prop="yearEndTotalAsset">
                     <el-input v-model="form.yearEndTotalAsset"></el-input>
                 </el-form-item>
-                <el-form-item label="期初资产总额">
+                <el-form-item label="期初资产总额" prop="yearBeginTotalAsset">
                     <el-input v-model="form.yearBeginTotalAsset"></el-input>
                 </el-form-item>
-                <el-form-item label="研发费用">
+                <el-form-item label="研发费用" prop="rdExpenses">
                     <el-input v-model="form.rdExpenses"></el-input>
                 </el-form-item>
-                <el-form-item label="中高级技术人员人数">
+                <el-form-item label="中高级技术人员人数" prop="seniorTecStaffTotal">
                     <el-input v-model="form.seniorTecStaffTotal"></el-input>
                 </el-form-item>
-                <el-form-item label="全体员工总数">
+                <el-form-item label="全体员工总数" prop="staffTotal">
                     <el-input v-model="form.staffTotal"></el-input>
                 </el-form-item>
-                <el-form-item label="国际市场的产品销售额">
+                <el-form-item label="国际市场的产品销售额" prop="interMarketProductSales">
                     <el-input v-model="form.interMarketProductSales"></el-input>
                 </el-form-item>
-                <el-form-item label="国际市场上同类产品销售额">
+                <el-form-item label="国际市场上同类产品销售额" prop="interMarketSameKindProductSales">
                     <el-input v-model="form.interMarketSameKindProductSales"></el-input>
                 </el-form-item>
-                <el-form-item label="报告期产品出口额">
+                <el-form-item label="报告期产品出口额" prop="reportPeriodProductExport">
                     <el-input v-model="form.reportPeriodProductExport"></el-input>
                 </el-form-item>
-                <el-form-item label="基期产品出口额">
+                <el-form-item label="基期产品出口额" prop="basePeriodProductExport">
                     <el-input v-model="form.basePeriodProductExport"></el-input>
                 </el-form-item>
-                <el-form-item label="满意的消费者数量">
+                <el-form-item label="满意的消费者数量" prop="satisfiedConsumer">
                     <el-input v-model="form.satisfiedConsumer"></el-input>
                 </el-form-item>
-                <el-form-item label="抽样的总消费者数量">
+                <el-form-item label="抽样的总消费者数量" prop="sampleConsumer">
                     <el-input v-model="form.sampleConsumer"></el-input>
                 </el-form-item>
-                <el-form-item label="污染排放量">
+                <el-form-item label="污染排放量" prop="pollutantEmission">
                     <el-input v-model="form.pollutantEmission"></el-input>
                 </el-form-item>
-                <el-form-item label="法定排放量">
+                <el-form-item label="法定排放量" prop="legalEmission">
                     <el-input v-model="form.legalEmission"></el-input>
                 </el-form-item>
-                <el-form-item label="社会捐赠总额">
+                <el-form-item label="社会捐赠总额" prop="socialDonation">
                     <el-input v-model="form.socialDonation"></el-input>
                 </el-form-item>
-                <el-form-item label="平均资产总额">
+                <el-form-item label="平均资产总额" prop="avgTotalAsset">
                     <el-input v-model="form.avgTotalAsset"></el-input>
                 </el-form-item>
-                <!--                <el-form-item label="地址">-->
-                <!--                    <el-input v-model="form.address"></el-input>-->
-                <!--                </el-form-item>-->
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editVisible = false">取 消</el-button>
@@ -176,9 +173,9 @@
         </el-dialog>
 
         <!-- 新增弹出框 -->
-        <el-dialog title="新增原始数据" :visible.sync="addVisible" width="50%">
-            <el-form ref="form" :model="form" label-width="70px" :inline="true" label-position="top" >
-                <el-form-item label="选择对应的公司">
+        <el-dialog title="新增原始数据" :visible.sync="addVisible" width="50%" @close="this.$refs.addForm.resetFields()">
+            <el-form ref="addForm" :model="form" :rules="rules" label-width="70px" :inline="true" label-position="top" >
+                <el-form-item label="选择对应的公司" prop="companyId">
                     <el-select v-model="form.companyId" placeholder="请选择" >
                         <el-option
                                 v-for="item in companyListData"
@@ -189,85 +186,85 @@
                     </el-select>
                 </el-form-item>
                 <br/>
-                <el-form-item label="产品销售额">
+                <el-form-item label="产品销售额" prop="productSales">
                     <el-input v-model="form.productSales"></el-input>
                 </el-form-item>
-                <el-form-item label="市场同类产品销售额">
+                <el-form-item label="市场同类产品销售额" prop="marketSameKindProductSales">
                     <el-input v-model="form.marketSameKindProductSales"></el-input>
                 </el-form-item>
-                <el-form-item label="利润总额">
+                <el-form-item label="利润总额" prop="totalProfit">
                     <el-input v-model="form.totalProfit"></el-input>
                 </el-form-item>
-                <el-form-item label="营业收入">
+                <el-form-item label="营业收入" prop="operatingIncome">
                     <el-input v-model="form.operatingIncome"></el-input>
                 </el-form-item>
-                <el-form-item label="销售成本">
+                <el-form-item label="销售成本" prop="salesCost">
                     <el-input v-model="form.salesCost"></el-input>
                 </el-form-item>
-                <el-form-item label="存货平均余额">
+                <el-form-item label="存货平均余额" prop="avgStockOverage">
                     <el-input v-model="form.avgStockOverage"></el-input>
                 </el-form-item>
-                <el-form-item label="应收账款平均余额">
+                <el-form-item label="应收账款平均余额" prop="avgPaymentToReceive">
                     <el-input v-model="form.avgPaymentToReceive"></el-input>
                 </el-form-item>
-                <el-form-item label="负债总额">
+                <el-form-item label="负债总额" prop="totalDebt">
                     <el-input v-model="form.totalDebt"></el-input>
                 </el-form-item>
-                <el-form-item label="资产总额">
+                <el-form-item label="资产总额" prop="totalAsset">
                     <el-input v-model="form.totalAsset"></el-input>
                 </el-form-item>
-                <el-form-item label="流动资产">
+                <el-form-item label="流动资产" prop="currentAsset">
                     <el-input v-model="form.currentAsset"></el-input>
                 </el-form-item>
-                <el-form-item label="流动负债">
+                <el-form-item label="流动负债" prop="currentLiability">
                     <el-input v-model="form.currentLiability"></el-input>
                 </el-form-item>
-                <el-form-item label="速动资产">
+                <el-form-item label="速动资产" prop="quickAsset">
                     <el-input v-model="form.quickAsset"></el-input>
                 </el-form-item>
-                <el-form-item label="期末资产总额">
+                <el-form-item label="期末资产总额" prop="yearEndTotalAsset">
                     <el-input v-model="form.yearEndTotalAsset"></el-input>
                 </el-form-item>
-                <el-form-item label="期初资产总额">
+                <el-form-item label="期初资产总额" prop="yearBeginTotalAsset">
                     <el-input v-model="form.yearBeginTotalAsset"></el-input>
                 </el-form-item>
-                <el-form-item label="研发费用">
+                <el-form-item label="研发费用" prop="rdExpenses">
                     <el-input v-model="form.rdExpenses"></el-input>
                 </el-form-item>
-                <el-form-item label="中高级技术人员人数">
+                <el-form-item label="中高级技术人员人数" prop="seniorTecStaffTotal">
                     <el-input v-model="form.seniorTecStaffTotal"></el-input>
                 </el-form-item>
-                <el-form-item label="全体员工总数">
+                <el-form-item label="全体员工总数" prop="staffTotal">
                     <el-input v-model="form.staffTotal"></el-input>
                 </el-form-item>
-                <el-form-item label="国际市场的产品销售额">
+                <el-form-item label="国际市场的产品销售额" prop="interMarketProductSales">
                     <el-input v-model="form.interMarketProductSales"></el-input>
                 </el-form-item>
-                <el-form-item label="国际市场上同类产品销售额">
+                <el-form-item label="国际市场上同类产品销售额" prop="interMarketSameKindProductSales">
                     <el-input v-model="form.interMarketSameKindProductSales"></el-input>
                 </el-form-item>
-                <el-form-item label="报告期产品出口额">
+                <el-form-item label="报告期产品出口额" prop="reportPeriodProductExport">
                     <el-input v-model="form.reportPeriodProductExport"></el-input>
                 </el-form-item>
-                <el-form-item label="基期产品出口额">
+                <el-form-item label="基期产品出口额" prop="basePeriodProductExport">
                     <el-input v-model="form.basePeriodProductExport"></el-input>
                 </el-form-item>
-                <el-form-item label="满意的消费者数量">
+                <el-form-item label="满意的消费者数量" prop="satisfiedConsumer">
                     <el-input v-model="form.satisfiedConsumer"></el-input>
                 </el-form-item>
-                <el-form-item label="抽样的总消费者数量">
+                <el-form-item label="抽样的总消费者数量" prop="sampleConsumer">
                     <el-input v-model="form.sampleConsumer"></el-input>
                 </el-form-item>
-                <el-form-item label="污染排放量">
+                <el-form-item label="污染排放量" prop="pollutantEmission">
                     <el-input v-model="form.pollutantEmission"></el-input>
                 </el-form-item>
-                <el-form-item label="法定排放量">
+                <el-form-item label="法定排放量" prop="legalEmission">
                     <el-input v-model="form.legalEmission"></el-input>
                 </el-form-item>
-                <el-form-item label="社会捐赠总额">
+                <el-form-item label="社会捐赠总额" prop="socialDonation">
                     <el-input v-model="form.socialDonation"></el-input>
                 </el-form-item>
-                <el-form-item label="平均资产总额">
+                <el-form-item label="平均资产总额" prop="avgTotalAsset">
                     <el-input v-model="form.avgTotalAsset"></el-input>
                 </el-form-item>
             </el-form>
@@ -394,6 +391,38 @@ export default {
                 pageNum: 1,
                 pageSize: 10
             },
+
+            rules: {
+                companyId: [{required: true, message: '不能为空', trigger: 'blur'}],
+                productSales: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                marketSameKindProductSales: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                totalProfit: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                operatingIncome: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                salesCost: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                avgStockOverage: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                avgPaymentToReceive: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                totalDebt: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                totalAsset: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                currentAsset: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                currentLiability: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                quickAsset: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                yearEndTotalAsset: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                yearBeginTotalAsset: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                rdExpenses: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                seniorTecStaffTotal: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                staffTotal: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                interMarketProductSales: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                interMarketSameKindProductSales: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                reportPeriodProductExport: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                basePeriodProductExport: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                satisfiedConsumer: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                sampleConsumer: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                pollutantEmission: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                legalEmission: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                socialDonation: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+                avgTotalAsset: [{required: true, message: '不能为空', trigger: 'blur'}, {pattern: /^[0-9]?[.]?[0-9]*$/, message: '仅可以输入数字'} ],
+            },
+
             tableData: [],
             companyListData: [],
             multipleSelection: [],
@@ -504,33 +533,52 @@ export default {
 
         // 保存编辑
         saveEdit() {
-            let params = this.form;
-            updateRawData(params).then(res => {
-                if (res.resultCode === 0) {
-                    this.$message.success(`修改成功`);
-                    this.editVisible = false;
-                    this.$set(this.tableData, this.idx, this.form);
-                    this.getData();
+            this.$refs.editForm.validate(vali => {
+                if (vali) {
+                    let params = this.form;
+                    updateRawData(params).then(res => {
+                        if (res.resultCode === 0) {
+                            this.$message.success(`修改成功`);
+                            this.editVisible = false;
+                            this.$set(this.tableData, this.idx, this.form);
+                            this.getData();
+                        }
+                    });
+                } else {
+                    this.$message.error('数据格式校验失败');
+                    return false;
                 }
             });
         },
         // 保存新增
         saveAdd() {
-            let params = this.form;
-            params.userId = localStorage.getItem('curUserId');
-            addRawData(params).then(res => {
-                if (res.resultCode === 0) {
-                    this.$message.success(`新增成功`);
-                    this.addVisible = false;
-                    this.$set(this.tableData, this.idx, this.form);
-                    this.getData();
+            this.$refs.addForm.validate(vali => {
+                if (vali) {
+                    let params = this.form;
+                    params.userId = localStorage.getItem('curUserId');
+                    addRawData(params).then(res => {
+                        if (res.resultCode === 0) {
+                            this.$message.success(`新增成功`);
+                            this.addVisible = false;
+                            this.$set(this.tableData, this.idx, this.form);
+                            this.getData();
+                        }
+                    });
+                } else {
+                    this.$message.error('数据格式校验失败');
+                    return false;
                 }
             });
+
         },
         // 分页导航
         handlePageChange(val) {
             this.$set(this.query, 'pageNum', val);
             this.getData();
+        },
+
+        editFormClose() {
+            this.$refs.editForm.resetFields();
         }
     }
 };

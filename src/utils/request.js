@@ -33,17 +33,18 @@ service.interceptors.response.use(
         }
     },
     error => {
+        afterCatchError(error);
         if (error.response && (error.response.status === 401 || error.response.status === 403)) {
             message("鉴权失败！返回登入页面");
-            if (count === 0) {
+            // if (count === 0) {
                 Router.push({
                     path: "login"
-                })
+                });
             }
-            count += 1;
-        } else {
-            count = 0;
-        }
+            // count += 1;
+        // } else {
+        //     count = 0;
+        // }
         return Promise.reject();
     }
 );
@@ -58,7 +59,7 @@ export async function post(url, params, showError) {
         errorHandle(result, showError);
         return data;
     } catch (error) {
-        afterCatchError(error);
+        // afterCatchError(error);
         throw error.data || error;
     }
 }
@@ -72,7 +73,7 @@ export async function get(url, params, showError) {
         errorHandle(result, showError);
         return (data);
     } catch (error) {
-        afterCatchError(error);
+        // afterCatchError(error);
         throw error.data || error;
     }
 }
@@ -84,7 +85,7 @@ export async function put(url, params, showError) {
         errorHandle(result, showError);
         return data;
     } catch (error) {
-        afterCatchError(error);
+        // afterCatchError(error);
         throw error.data || error;
     }
 }
@@ -98,7 +99,7 @@ export async function deletes(url, params, showError) {
         errorHandle(result, showError);
         return data;
     } catch (error) {
-        afterCatchError(error);
+        // afterCatchError(error);
         throw error.data || error;
     }
 }
@@ -112,7 +113,7 @@ function errorHandle(res, showError) {
 // 通用错误处理
 function afterCatchError(error) {
     // 如果error为空，多半就是网络异常了
-    if (!error) {
+    if (null != error) {
         message('网络异常');
     } else {
         message('请求失败 ： ' + error.response);
