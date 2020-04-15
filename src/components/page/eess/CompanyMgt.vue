@@ -32,9 +32,13 @@
                 <el-table-column prop="companyName" label="企业名称"></el-table-column>
                 <el-table-column label="操作" width="380" align="center">
                     <template slot-scope="scope">
+                            <el-tag :type="'warning'" v-if="scope.row.userId === 0">
+                                {{ '样例企业 无法操作' }}
+                            </el-tag>
                         <el-button
                             type="text"
                             icon="el-icon-edit"
+                            v-if="scope.row.userId !== 0"
                             @click="handleEdit(scope.$index, scope.row)"
                         >编辑</el-button>
                         <el-button
@@ -60,9 +64,9 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="70px">
-                <el-form-item label="企业名">
+        <el-dialog title="编辑" :visible.sync="editVisible" width="30%" @close="resetEditForm">
+            <el-form ref="editForm" :model="form" :rules="rules" label-width="70px">
+                <el-form-item label="企业名" prop="companyName">
                     <el-input v-model="form.companyName"></el-input>
                 </el-form-item>
             </el-form>
@@ -73,9 +77,9 @@
         </el-dialog>
 
         <!-- 新增弹出框 -->
-        <el-dialog title="新增" :visible.sync="addVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="70px">
-                <el-form-item label="企业名">
+        <el-dialog title="新增" :visible.sync="addVisible" width="30%" @close="resetAddForm">
+            <el-form ref="addForm" :model="form" :rules="rules" label-width="70px">
+                <el-form-item label="企业名" prop="companyName">
                     <el-input v-model="form.companyName"></el-input>
                 </el-form-item>
             </el-form>
@@ -89,14 +93,14 @@
 </template>
 
 <script>
-import {
-    getCompanyPaged,
-    updateCompany,
-    addCompany,
-    deleteCompany,
-    deleteCompanyBatch,
+    import {
+        getCompanyPaged,
+        updateCompany,
+        addCompany,
+        deleteCompany,
+        deleteCompanyBatch, customizeWeight,
 
-} from '../../../api/index';
+    } from '../../../api/index';
 
 export default {
     name: 'basetable',
@@ -109,6 +113,11 @@ export default {
                 pageNum: 1,
                 pageSize: 10
             },
+
+            rules: {
+                companyName: [{required: true, message: '不能为空', trigger: 'blur'}],
+            },
+
             tableData: [],
             multipleSelection: [],
             delList: [],
@@ -193,34 +202,62 @@ export default {
 
         // 保存编辑
         saveEdit() {
-            let params = {
-                id: this.form.id,
-                companyName: this.form.companyName
-            };
-            updateCompany(params).then(res => {
-                if (res.resultCode === 0) {
-                    this.$message.success(`修改成功`);
-                    this.editVisible = false;
-                    this.$set(this.tableData, this.idx, this.form);
-                    this.getData();
+            this.$refs.editForm.validate(vali => {
+                if (vali) {
+
+                    let params = {
+                        id: this.form.id,
+                        companyName: this.form.companyName
+                    };
+                    updateCompany(params).then(res => {
+                        if (res.resultCode === 0) {
+                            this.$message.success(`修改成功`);
+                            this.editVisible = false;
+                            this.$set(this.tableData, this.idx, this.form);
+                            this.getData();
+                        }
+                    });
+
+                } else {
+                    this.$message.error('数据格式校验失败');
+                    return false;
                 }
             });
+
         },
         // 保存新增
         saveAdd() {
-            let params = {
-                companyName: this.form.companyName,
-                userId : localStorage.getItem('curUserId'),
-            };
-            addCompany(params).then(res => {
-                if (res.resultCode === 0) {
-                    this.$message.success(`新增成功`);
-                    this.addVisible = false;
-                    this.$set(this.tableData, this.idx, this.form);
-                    this.getData();
+            this.$refs.addForm.validate(vali => {
+                if (vali) {
+                    let params = {
+                        companyName: this.form.companyName,
+                        userId : localStorage.getItem('curUserId'),
+                    };
+                    addCompany(params).then(res => {
+                        if (res.resultCode === 0) {
+                            this.$message.success(`新增成功`);
+                            this.addVisible = false;
+                            this.$set(this.tableData, this.idx, this.form);
+                            this.getData();
+                        }
+                    });
+                } else {
+                    this.$message.error('数据格式校验失败');
+                    return false;
                 }
             });
+
+
         },
+
+        resetAddForm() {
+            this.$refs.addForm.resetFields();
+        },
+        resetEditForm() {
+            this.$refs.editForm.resetFields();
+        },
+
+
         // 分页导航
         handlePageChange(val) {
             this.$set(this.query, 'pageNum', val);

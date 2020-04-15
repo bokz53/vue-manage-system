@@ -75,11 +75,11 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="自定义权重" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="70px">
+        <el-dialog title="自定义权重" :visible.sync="editVisible" width="30%" @close="resetForm">
+            <el-form ref="form" :rules="rules" :model="form" label-width="70px">
                 <h3>{{form.indexName}}</h3>
                 <div>（请输入小数而非百分比）</div>
-                <el-form-item label="权重值">
+                <el-form-item label="权重值" prop="weight">
                     <el-input v-model="form.weight"></el-input>
                 </el-form-item>
             </el-form>
@@ -93,14 +93,14 @@
 </template>
 
 <script>
-import {
-    getWeightByUserId,
-    customizeWeight,
-    uncustomizeWeight,
-    initWeight,
-    getWeightTree,
+    import {
+        getWeightByUserId,
+        customizeWeight,
+        uncustomizeWeight,
+        initWeight,
+        getWeightTree, addRawData,
 
-} from '../../../api/index';
+    } from '../../../api/index';
 
 import indexName from '../../common/IndexNameMap';
 
@@ -112,6 +112,13 @@ export default {
                 userId: localStorage.getItem('curUserId'),
                 // keyword: '',
             },
+            rules: {
+                weight: [{required: true, message: '不能为空', trigger: 'blur'}, {
+                    pattern: /^[0-9]?[.]?[0-9]*$/,
+                    message: '仅可以输入数字'
+                }],
+            },
+
             tableData: [],
             multipleSelection: [],
             delList: [],
@@ -140,6 +147,9 @@ export default {
         this.getIndexTree();
     },
     methods: {
+        resetForm() {
+            this.$refs.form.resetFields();
+        },
 
         getIndexTree() {
             getWeightTree().then(res => {
@@ -203,17 +213,26 @@ export default {
         },
         // 保存编辑
         saveCustomize() {
-            let params = {
-                userId: localStorage.getItem('curUserId'),
-                indexCode: this.form.indexCode,
-                weight: this.form.weight,
-            };
-            customizeWeight(params).then(res => {
-                if (res.resultCode === 0) {
-                    this.$message.success(`修改成功`);
-                    this.editVisible = false;
-                    this.$set(this.tableData, this.idx, this.form);
-                    this.getData();
+            this.$refs.form.validate(vali => {
+                if (vali) {
+
+                    let params = {
+                        userId: localStorage.getItem('curUserId'),
+                        indexCode: this.form.indexCode,
+                        weight: this.form.weight,
+                    };
+                    customizeWeight(params).then(res => {
+                        if (res.resultCode === 0) {
+                            this.$message.success(`修改成功`);
+                            this.editVisible = false;
+                            this.$set(this.tableData, this.idx, this.form);
+                            this.getData();
+                        }
+                    });
+
+                } else {
+                    this.$message.error('数据格式校验失败');
+                    return false;
                 }
             });
         },
@@ -233,14 +252,6 @@ export default {
     margin-bottom: 20px;
 }
 
-.handle-select {
-    width: 120px;
-}
-
-.handle-input {
-    width: 300px;
-    display: inline-block;
-}
 .table {
     width: 100%;
     font-size: 14px;
@@ -248,13 +259,5 @@ export default {
 .red {
     color: #ff0000;
 }
-.mr10 {
-    margin-right: 10px;
-}
-.table-td-thumb {
-    display: block;
-    margin: auto;
-    width: 40px;
-    height: 40px;
-}
+
 </style>
