@@ -19,34 +19,30 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/Dashboard.vue'),
                     meta: { title: '系统首页' }
                 },
-
                 {
                     // 企业管理
                     path: '/companyMgt',
-                    component: () => import(/* webpackChunkName: "permission" */ '../components/page/eess/CompanyMgt.vue'),
+                    component: () => import(/* webpackChunkName: "companyMgt" */ '../components/page/eess/CompanyMgt.vue'),
                     meta: { title: '企业管理' }
                 },
-
                 {
                     // 自定义权重
                     path: '/customWeight',
-                    component: () => import(/* webpackChunkName: "permission" */ '../components/page/eess/CustomWeightMgt.vue'),
+                    component: () => import(/* webpackChunkName: "customWeight" */ '../components/page/eess/CustomWeightMgt.vue'),
                     meta: { title: '自定义权重' }
                 },
-
                 {
                     // 指标展览
                     path: '/indexDisplay',
-                    component: () => import(/* webpackChunkName: "permission" */ '../components/page/eess/IndexDisplay.vue'),
+                    component: () => import(/* webpackChunkName: "indexDisplay" */ '../components/page/eess/IndexDisplay.vue'),
                     meta: { title: '指标展览' }
                 },
                 {
                     // 原始数据管理
                     path: '/rawDataMgt',
-                    component: () => import(/* webpackChunkName: "permission" */ '../components/page/eess/RawDataMgt.vue'),
+                    component: () => import(/* webpackChunkName: "rawDataMgt" */ '../components/page/eess/RawDataMgt.vue'),
                     meta: { title: '指标展览' }
                 },
-
                 {
                     path: '/404',
                     component: () => import(/* webpackChunkName: "404" */ '../components/page/404.vue'),

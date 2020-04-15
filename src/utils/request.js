@@ -59,7 +59,6 @@ export async function post(url, params, showError) {
         errorHandle(result, showError);
         return data;
     } catch (error) {
-        // afterCatchError(error);
         throw error.data || error;
     }
 }
@@ -73,7 +72,6 @@ export async function get(url, params, showError) {
         errorHandle(result, showError);
         return (data);
     } catch (error) {
-        // afterCatchError(error);
         throw error.data || error;
     }
 }
@@ -85,7 +83,6 @@ export async function put(url, params, showError) {
         errorHandle(result, showError);
         return data;
     } catch (error) {
-        // afterCatchError(error);
         throw error.data || error;
     }
 }
@@ -99,7 +96,6 @@ export async function deletes(url, params, showError) {
         errorHandle(result, showError);
         return data;
     } catch (error) {
-        // afterCatchError(error);
         throw error.data || error;
     }
 }

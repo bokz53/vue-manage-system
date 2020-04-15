@@ -156,7 +156,7 @@ export default {
         // 删除操作
         handleDelete(index, row) {
             // 二次确认删除
-            this.$confirm('确定要删除吗？', '提示', {
+            this.$confirm('此企业的原始数据以及指标会被一并删除，确定删除吗？', '提示', {
                 type: 'warning'
             }).then(() => {
                     let params = {
